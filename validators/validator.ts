@@ -2,7 +2,6 @@ class Validator {
     data;
     constructor(data:any){
         this.data = data
-        console.log("Tipo validado")
     }
 }
 
@@ -38,9 +37,17 @@ class Numbervalidator extends Validator{
         }
     }
 }
-let a = new StringValidator("oi")
-let b = new BooleanValidator(true)
-let c = new Numbervalidator(2)
 
+class RegexValidator extends StringValidator{
+    constructor(data:string){
+        super(data);
+        const re = new RegExp(/^(\w{1,}@\w{1,}\.(\w{3})(\.\w{2}){0,1})$/gim);
+        if(!re.test(data)){
+            throw new Error("O formato está errado")
+        }
+        
+    }
+}
 
+export default RegexValidator
 
