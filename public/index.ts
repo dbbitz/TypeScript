@@ -1,5 +1,22 @@
 import { NameValidator, EmailValidator, PasswordValidator } from './validators/validator.js'
 
+interface ApiResponde<T>{
+  data: T,
+  errors: Array<String>
+}
+
+interface UserData{
+  id: Number,
+  email: String,
+  name: String
+}
+
+interface LoginData{
+  id: any
+}
+
+let user:UserData;
+
 class EmailInput extends HTMLElement {
   constructor() {
     // Sempre chame super primeiro no construtor
@@ -17,6 +34,7 @@ class EmailInput extends HTMLElement {
 
     input.onchange = () => {
       console.log(new EmailValidator(input.value));
+      user.email = input.value
     };
   }
 }
@@ -39,7 +57,7 @@ class PasswordInput extends HTMLElement {
     input.onchange = () => {
       console.log(new PasswordValidator(input.value));
     };
-    input.type = 'password'
+    user.id = input.value
   }
 }
 customElements.define('password-input', PasswordInput)
@@ -60,6 +78,7 @@ class NameInput extends HTMLElement {
     shadow.appendChild(input)
     input.onchange = () => {
       console.log(new NameValidator(input.value));
+      user.name = input.value
     };
   }
 }
@@ -73,22 +92,13 @@ class Buttons extends HTMLElement {
 
     const shadow = this.attachShadow({ mode: 'open' })
 
-    let btnRegister = document.createElement('input')
-    shadow.appendChild(btnRegister)
-    btnRegister.type = 'button'
-    btnRegister.value = 'Cadastrar'
-
-
-
     let btnLogin = document.createElement('input')
     shadow.appendChild(btnLogin)
     btnLogin.type = 'button'
     btnLogin.value = 'Logar'
-
-    let btnUpdate = document.createElement('input')
-    shadow.appendChild(btnUpdate)
-    btnUpdate.type = 'button'
-    btnUpdate.value = 'Atualizar'
+    btnLogin.onclick = () => {
+      console.log('oi')
+    }
 
     const linkElem = document.createElement("link");
     linkElem.setAttribute("rel", "stylesheet");
@@ -102,4 +112,5 @@ class Buttons extends HTMLElement {
 }
 
 customElements.define('button-input', Buttons)
+
 

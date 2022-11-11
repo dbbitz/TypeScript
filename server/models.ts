@@ -4,11 +4,13 @@ interface ApiResponde<T>{
 }
 
 interface UserData{
-    id: any,
-    email: any,
-    name: string
+    id: Number,
+    email: String,
+    name: String
 }
 
 interface LoginData{
     id: any
 }
+
+

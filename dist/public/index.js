@@ -1,4 +1,5 @@
-import { NameValidator, EmailValidator, PasswordValidator } from './validators/validator';
+import { NameValidator, EmailValidator, PasswordValidator } from './validators/validator.js';
+let user;
 class EmailInput extends HTMLElement {
     constructor() {
         // Sempre chame super primeiro no construtor
@@ -12,6 +13,7 @@ class EmailInput extends HTMLElement {
         shadow.appendChild(input);
         input.onchange = () => {
             console.log(new EmailValidator(input.value));
+            user.email = input.value;
         };
     }
 }
@@ -30,7 +32,7 @@ class PasswordInput extends HTMLElement {
         input.onchange = () => {
             console.log(new PasswordValidator(input.value));
         };
-        input.type = 'password';
+        user.id = input.value;
     }
 }
 customElements.define('password-input', PasswordInput);
@@ -47,7 +49,27 @@ class NameInput extends HTMLElement {
         shadow.appendChild(input);
         input.onchange = () => {
             console.log(new NameValidator(input.value));
+            user.name = input.value;
         };
     }
 }
 customElements.define('name-input', NameInput);
+class Buttons extends HTMLElement {
+    constructor() {
+        super();
+        const shadow = this.attachShadow({ mode: 'open' });
+        let btnLogin = document.createElement('input');
+        shadow.appendChild(btnLogin);
+        btnLogin.type = 'button';
+        btnLogin.value = 'Logar';
+        btnLogin.onclick = () => {
+            console.log('oi');
+        };
+        const linkElem = document.createElement("link");
+        linkElem.setAttribute("rel", "stylesheet");
+        linkElem.setAttribute("href", "./style.css");
+        // Attach the created element to the shadow DOM
+        shadow.appendChild(linkElem);
+    }
+}
+customElements.define('button-input', Buttons);
